@@ -1,0 +1,31 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %} profile {% endblock title %}
+
+{% block main-content %}
+
+<div class="continer text-center ">
+{% if product %}
+{% for i in product %}
+
+      <div class="card text-center mx-4 my-3" style="width: 18rem; display:inline-block">
+        <a href="{% url 'Product_detais' i.id %}">
+            <img src="{{ i.product_image.url }}" style=" width:200px ; height:200px" >
+        </a>
+          <div class="card-body">
+              <h5 class="card-title">{{ i.title }}</h5>
+              <h5 class="card-text text-muted">{{ i.discounted_price }}</h5>
+              <h5 class="text-decoration-line-through text-danger">{{ i.selling_price }}</h5>
+              <a href="{% url 'add_to_cart' i.id %}" class="btn btn-warning shadow px-5 py-2 ms-4">Add To Cart</a>
+          </div>
+      </div>
+    {% endfor %}
+    {% else %}
+
+    <div>
+        <h2>No Result found!</h2>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock main-content %}
