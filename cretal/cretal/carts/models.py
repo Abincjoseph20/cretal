@@ -19,6 +19,5 @@ class Cart_items(models.Model):
     def sub_total(self):
         return self.product.discounted_price * self.quantity
 
-
     def __str__(self):
-        return self.product
+        return str(self.product)
