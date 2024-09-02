@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cretal.wsgi.application'
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.Account'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -143,9 +143,9 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger",
 }
 
-#
-# EMAIL_HOST =config('EMAIL_HOST')
-# EMAIL_PORT = config('EMAIL_PORT')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS =config('EMAIL_USE_TLS')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'abincjoseph77@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abin@20022000'
+EMAIL_USE_TLS = True
