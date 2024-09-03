@@ -4,6 +4,7 @@ from .models import Account
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
 
+
 #verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -38,7 +39,7 @@ def register(request):
 
             })
             to_email = email
-            send_email = EmailMessage(mail_subject,message,to=[to_email])
+            send_email = EmailMessage(mail_subject,messages,to=[to_email])
             send_email.send()
             messages.success(request,'Registration successful')
             return redirect('login')
