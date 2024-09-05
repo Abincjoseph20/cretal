@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'mainapp',
     'carts',
     'accounts',
+
+    # 'django.contrib.sites',
 ]
+# SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -150,6 +153,43 @@ MESSAGE_TAGS = {
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'abincjoseph77@gmail.com'
+EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'
 EMAIL_HOST_PASSWORD = 'Abin@20022000'
 EMAIL_USE_TLS = True
+
+
+# settings.py
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Abin@20022000'
+
+# import os
+#
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER='ebin20.cjoseph28@gmail.com'
+# EMAIL_HOST_PASSWORD='Abin@20022000'
+
+# # Email Backend Configuration
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+#
+# # Your email credentials
+# EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'  # Replace with your email
+# EMAIL_HOST_PASSWORD = 'Abin@20022000'  # Replace with your email password
+#
+# # Default from email (optional but recommended)
+# DEFAULT_FROM_EMAIL = 'ebin20.cjoseph28@gmail.com'  # This will be the sender email in the activation emails
+
+
+
+
