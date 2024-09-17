@@ -16,7 +16,8 @@
               <h5 class="card-title">{{ i.title }}</h5>
               <h5 class="card-text text-muted">{{ i.discounted_price }}</h5>
               <h5 class="text-decoration-line-through text-danger">{{ i.selling_price }}</h5>
-              <a href="{% url 'add_to_cart' i.id %}" class="btn btn-warning shadow px-5 py-2 ms-4">Add To Cart</a>
+              <a href="{% url 'add_to_cart' i.id %}" class="btn btn-warning shadow px-5 py-2 ms-4">Add To Cart</a> <br><br>
+              <a href="{% url 'wish_to_cart1' i.id %}" class="btn btn-danger shadow px-5 py-2 ms-4">wished item</a>
           </div>
       </div>
     {% endfor %}

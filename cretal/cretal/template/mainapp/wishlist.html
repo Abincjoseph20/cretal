@@ -1,0 +1,48 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %} profile {% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+{% if not wish_item %}
+    <h2 class="text-center">Your Shopping Cart is empty!</h2>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping!</a>
+    </div>
+    {% else%}
+     {% for wished_item in wish_item %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Cart</h3>
+                    <div class="row">
+                        <div class="col-sm-3 text-center align-self-center">
+                            <a href="#">
+                                <img src="{{ wished_item.product.product_image.url }}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <div>
+                                <h5>{{ wished_item.product.title }}</h5>
+                                <p class="mb-2 text-muted small">{{ wished_item.product.description }}</p>
+                                <br>
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'remove_wish_item' wished_item.product.id %}" class="remove-cart btn btn-sm btn-secondary mr-3" pid="#">Remove Item</a>
+                                    <p class="mb-0"><span><strong>Rs. {{ wished_item.sub_total }}</strong></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                </div>
+            </div>
+        </div>
+ {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock main-content %}

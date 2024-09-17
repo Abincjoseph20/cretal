@@ -65,10 +65,10 @@
           </ul>
         </li>
           <li class="nav-item mx-2">
-               <a href="#" class="nav-link tex-white ">cart</a>
+               <a href="{% url 'cart' %}" class="nav-link tex-white ">cart</a>
           </li>
           <li class="nav-item mx-2">
-              <a href="#" class="nav-link tex-white ">wished-item</a>
+              <a href="{% url 'wish' %}" class="nav-link tex-white ">wished-item</a>
           </li>
           {% if user.id is None %}
 
