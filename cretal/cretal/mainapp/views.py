@@ -48,3 +48,8 @@ def store(request):
         'product':Product.objects.all()
     }
     return render(request,'mainapp/store.html',product)
+
+
+
+def demo(request):
+    return render(request,'mainapp/demo.html')

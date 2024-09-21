@@ -1,36 +1,38 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-{% block title %} profile {% endblock title %}
+{% block title %} Profile {% endblock title %}
 
 {% block main-content %}
 
 <div class="container my-5">
-{% if not wish_item %}
+    {% if not wish_item %}
     <h2 class="text-center">Your Shopping Cart is empty!</h2>
     <br>
     <div class="text-center">
         <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping!</a>
     </div>
-    {% else%}
-     {% for wished_item in wish_item %}
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
+    {% else %}
+    <div class="row justify-content-center">
+        <!-- Center the entire row -->
+        {% for wished_item in wish_item %}
+        <div class="col-md-8 mb-4">
+            <!-- Use col-md-8 and mb-4 for consistent size and spacing -->
+            <div class="card h-100">
                 <div class="card-body">
-                    <h3>Cart</h3>
                     <div class="row">
-                        <div class="col-sm-3 text-center align-self-center">
+                        <div class="col-md-4 text-center align-self-center">
+                            <!-- Adjusted to col-md-4 for image column -->
                             <a href="#">
-                                <img src="{{ wished_item.product.product_image.url }}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                <img src="{{ wished_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" style="height: 150px; width: 150px;">
                             </a>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-md-8">
+                            <!-- Adjusted to col-md-8 for text column -->
                             <div>
                                 <h5>{{ wished_item.product.title }}</h5>
                                 <p class="mb-2 text-muted small">{{ wished_item.product.description }}</p>
-                                <br>
-                                <div class="d-flex justify-content-between">
-                                    <a href="{% url 'remove_wish_item' wished_item.product.id %}" class="remove-cart btn btn-sm btn-secondary mr-3" pid="#">Remove Item</a>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <a href="{% url 'remove_wish_item' wished_item.product.id %}" class="remove-cart btn btn-sm btn-secondary mr-3">Remove Item</a>
                                     <p class="mb-0"><span><strong>Rs. {{ wished_item.sub_total }}</strong></span></p>
                                 </div>
                             </div>
@@ -40,7 +42,7 @@
                 </div>
             </div>
         </div>
- {% endfor %}
+        {% endfor %}
     </div>
     {% endif %}
 </div>

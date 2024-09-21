@@ -4,14 +4,14 @@ from django.db import models
 
 
 CATEGORY_CHOICE=(
-    ('CR','Crud'),
-    ('MK','Milk'),
-    ('LS','Lassi'),
-    ('MS','MilkShake'),
-    ('PN','Paneer'),
-    ('GH','Ghee'),
-    ('CZ','Cheese'),
-    ('IH','Ice-cream'),
+    ('CS','Casual shoe Men'),
+    ('CW','Casual Shoe Women'),
+    ('BT','Boots'),
+    ('SS','Sports Shoe'),
+    ('KD','Kids'),
+    ('JC','Jersey'),
+    ('TS','T-Shirts'),
+    ('PN','Pants'),
 )
 
 
