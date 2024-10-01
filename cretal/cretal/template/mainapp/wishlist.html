@@ -6,10 +6,12 @@
 
 <div class="container my-5">
     {% if not wish_item %}
-    <h2 class="text-center">Your Shopping Cart is empty!</h2>
+    <h2 class="text-center">Your wishlist is empty!</h2>
     <br>
     <div class="text-center">
-        <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping!</a>
+        <a href="{% url 'store' %}" class="btn btn-primary">add your favorite items!
+            <i class="fas fa-heart"></i>
+        </a>
     </div>
     {% else %}
     <div class="row justify-content-center">

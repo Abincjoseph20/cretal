@@ -84,10 +84,10 @@
           </ul>
         </li>
           <li class="nav-item mx-2">
-               <a href="{% url 'demo1' %}" class="nav-link text-primary-custom"><i class="fas fa-shopping-cart"></i> Cart</a>
+               <a href="{% url 'cart' %}" class="nav-link text-primary-custom"><i class="fas fa-shopping-cart"></i> Cart</a>
           </li>
           <li class="nav-item mx-2">
-              <a href="{% url 'demo1' %}" class="nav-link text-primary-custom"><i class="fas fa-heart"></i> Wished Item</a>
+              <a href="{% url 'wish' %}" class="nav-link text-primary-custom"><i class="fas fa-heart"></i> Wished Item</a>
           </li>
           {% if user.id is None %}
 
