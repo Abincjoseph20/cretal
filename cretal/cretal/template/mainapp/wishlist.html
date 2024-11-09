@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4 text-center align-self-center">
                             <!-- Adjusted to col-md-4 for image column -->
-                            <a href="#">
+                            <a href="{% url 'Product_details' wished_item.product.id %}">
                                 <img src="{{ wished_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" style="height: 150px; width: 150px;">
                             </a>
                         </div>

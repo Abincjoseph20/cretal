@@ -8,7 +8,7 @@
     {% if product %}
     {% for i in product %}
     <div class="card text-center mx-4 my-3" style="width: 18rem; display:inline-block">
-        <a href="{% url 'Product_detais' i.id %}">
+            <a href="{% url 'Product_details' i.id %}">
             <img src="{{ i.product_image.url }}" style="width: 200px; height: 200px;">
         </a>
         <div class="card-body">

@@ -4,6 +4,8 @@ from .models import Carts, Cart_items, wishlist, wishlist_items,BuyNow,BuyNow_it
 from django.core.exceptions import ObjectDoesNotExist
 
 
+
+
                                                     #cart
 # ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,6 +147,10 @@ def wish_view(request, total=0, quantity=0, wish_item=None):
     }
     return render(request, 'mainapp/wishlist.html', context)
 
+
+
+
+
 # View to remove a product from the wishlist
 def remove_wish_item(request, product_id):
     wish = wishlist.objects.get(wish_id=_wished_id(request))  # Get the wishlist using the session key
@@ -168,22 +174,31 @@ def _buynow_id(request):  # This private function is used to fetch the session i
         buynow = request.session.create()
     return buynow
 
-def buynow_cart(request, product_id):  # To get the Product
+def buynow_cart(request, product_id):
     product = Product.objects.get(id=product_id)
-    try:
-        buynow = BuyNow.objects.get(buynow_id=_buynow_id(request))  # Get the cart id using the cart session
-    except ObjectDoesNotExist:
-        buynow = BuyNow.objects.create(buynow_id=_buynow_id(request))
-    buynow.save()
 
-    try:
-        buynow_item = BuyNow_items.objects.get(product=product, buynow=buynow)  # If there is more than one time add to a single product in cart the qty will increase
-        buynow_item.quantity += 1  # Expansion -> (cart_item.quantity = cart_item.quantity + 1)
-        buynow_item.save()
-    except ObjectDoesNotExist:  # If there is no existing product here then add the product to the cart
-        buynow_item = BuyNow_items.objects.create(product=product, quantity=1, buynow=buynow)
-        buynow_item.save()
+    # Get or create a BuyNow instance for the current session
+    buynow_id = _buynow_id(request)  # Retrieve the session key
+    buynow, created = BuyNow.objects.get_or_create(buynow_id=buynow_id)
+    # If a BuyNow instance with the given buynow_id exists, it is returned
+    # If it does not exist, a new BuyNow instance is created and returned
+
+    # Clear all existing items in the BuyNow cart
+    BuyNow_items.objects.filter(buynow=buynow).delete()
+
+    # Create a new BuyNow_items entry with the selected product
+    buynow_item = BuyNow_items.objects.create(
+        product=product,
+        quantity=1,
+        buynow=buynow
+    )
+
+    # Save the new BuyNow_items entry
+    buynow_item.save()
+
+    # Redirect to the buynow view
     return redirect('buynow')
+
 
 
 def Buynow_view(request, total=0, quantity=0, buynow_items=None):  # This function for viewing Cart page

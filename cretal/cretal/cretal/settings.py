@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+
+from decouple import config
 import os
 # from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -127,22 +129,27 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
-LOGIN_REDIRECT_URL = '/profile/'
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Media files (Uploaded by users)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Login redirect URL
+LOGIN_REDIRECT_URL = '/profile/'
+
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
-MEDIA_URL = '/media/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-]
+
+
 
 from django.contrib.messages import constants as messages
 
@@ -151,44 +158,15 @@ MESSAGE_TAGS = {
 }
 
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'
-EMAIL_HOST_PASSWORD = 'Abin@20022000'
-EMAIL_USE_TLS = True
+EMAIL_PORT = 587  # Or the appropriate port for your SMTP server
+EMAIL_USE_TLS = config('EMAIL_USE_TLS',cast=bool) # Use TLS for secure communication
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-# settings.py
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Abin@20022000'
-
-# import os
-#
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER='ebin20.cjoseph28@gmail.com'
-# EMAIL_HOST_PASSWORD='Abin@20022000'
-
-# # Email Backend Configuration
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-#
-# # Your email credentials
-# EMAIL_HOST_USER = 'ebin20.cjoseph28@gmail.com'  # Replace with your email
-# EMAIL_HOST_PASSWORD = 'Abin@20022000'  # Replace with your email password
-#
-# # Default from email (optional but recommended)
-# DEFAULT_FROM_EMAIL = 'ebin20.cjoseph28@gmail.com'  # This will be the sender email in the activation emails
 
 
 

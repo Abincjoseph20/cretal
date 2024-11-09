@@ -59,6 +59,7 @@ class BuyNow(models.Model):
     def __str__(self):
         return self.buynow_id
 
+
 class BuyNow_items(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     buynow = models.ForeignKey(BuyNow, on_delete=models.CASCADE)
