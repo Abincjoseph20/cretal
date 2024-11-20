@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock title %}
+
+{% block main-content %}
+
+<h2 class="text-center">Your Shopping Cart is empty!</h2>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping!
+        </a>
+    </div>
+
+
+{% endblock main-content %}
