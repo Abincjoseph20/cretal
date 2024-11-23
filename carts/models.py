@@ -1,5 +1,6 @@
 from django.db import models
 from mainapp.models import Product
+from accounts.models import Account
 # Create your models here.
                                                     #cart
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,8 +14,9 @@ class Carts(models.Model):
         return self.cart_id
 
 class Cart_items(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,null=True)
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    cart = models.ForeignKey(Carts, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Carts, on_delete=models.CASCADE,null=True)
     quantity = models.IntegerField()
     is_active =models.BooleanField(default=True)
     def sub_total(self):

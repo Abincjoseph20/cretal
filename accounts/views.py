@@ -27,6 +27,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
 from .models import Account  # Import your Account model
 
+
+
+from carts.views import _cart_id
+from carts.models import Cart_items,Carts
+
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForms(request.POST)
@@ -79,15 +85,26 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(email=email, password=password)
-
         if user is not None:
-            auth.login(request, user)
+            try:
+                cart = Carts.objects.get(cart_id=_cart_id(request))  # Get the cart of the session
+                cart_items = Cart_items.objects.filter(cart=cart, is_active=True)
+                if cart_items.exists():  # Ensure there are active cart items
+                    for item in cart_items:
+                        item.user = user  # Assign the logged-in user to the cart item
+                        item.save()  # Save the updated cart item
+            except Carts.DoesNotExist:
+                pass  # If no cart exists for the session, do nothing
+
+            auth.login(request, user)  # Log the user in
             messages.success(request, 'You are now logged in')
             return redirect('home')  # Redirect to the home page after login
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
+
     return render(request, 'accounts/login.html')
+
 
 
 @login_required(login_url = 'login')
