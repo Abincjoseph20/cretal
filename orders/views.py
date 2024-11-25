@@ -60,10 +60,11 @@ def place_orders(request,total=0, quantity=0):
             order = Order.objects.get(user=current_user,is_ordered=False,order_number=order_number)
             context ={
                 'order':order,
-                'cart_item':cart_item,
+                'cart_items':cartitems,
                 'total':total,
                 'tax':tax,
                 'grand_total': grand_total,
+                'shipping': shipping
             }
             # return redirect('check_out')
             return render(request,'orders/payments.html',context)
@@ -72,11 +73,13 @@ def place_orders(request,total=0, quantity=0):
             return redirect('check_out')
     else:
         form = OrderForms()
-        return render(request, 'orders/place_order.html', {'form': form, 
-                                                           'cart_items': cartitems, 
-                                                           'grand_total': grand_total, 
-                                                           'tax': tax, 
-                                                           'shipping': shipping})
+        return render(request, 'orders/payments.html', {
+            'form': form, 
+            'cart_items': cartitems, 
+            'grand_total': grand_total, 
+            'tax': tax, 
+            'shipping': shipping
+            })
         
         
 
