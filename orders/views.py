@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from carts.models import Cart_items
 from .forms import OrderForms
-from .models import Order,Payment
+from .models import Order,Payment,OrderProduct
 import datetime
 import json
 # Create your views here.
@@ -106,19 +106,20 @@ def payments(request):
     order.is_ordered=True
     order.save()
     
+    # move the cart item to order Product
+
+    cartitems = Cart_items.objects.filter(user=request.user)
+    for item in cartitems:
+        orderproduct = OrderProduct()
+        orderproduct.order_id = order.id
+        orderproduct.payment = payment
+        orderproduct.user_id = request.user.id
+        orderproduct.product_id = item.product_id
+        orderproduct.quantity = item.quantity
+        orderproduct.product_price = item.product.discounted_price
+        orderproduct.size = 'Default Size'
+        orderproduct.ordered = True
+        orderproduct.save()
+        
     return render(request,'orders/payments.html')
 
-
-
-
-# def payments(request):
-#     if request.method == "POST":
-#         try:
-#             body = json.loads(request.body)
-#             print("Request body:", body)  # Log the request body to debug
-#             order = Order.objects.get(user=request.user, is_ordered=False, order_number=body['orderID'])
-#             # Process payment logic here
-#         except KeyError as e:
-#             print("KeyError: Missing key in body:", e)
-#             return HttpResponse(status=400)
-#         # Handle other logic
