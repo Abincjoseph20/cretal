@@ -2,8 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from carts.models import Cart_items
 from .forms import OrderForms
-from .models import Order
+from .models import Order,Payment
 import datetime
+import json
 # Create your views here.
 
 def place_orders(request,total=0, quantity=0):
@@ -57,6 +58,9 @@ def place_orders(request,total=0, quantity=0):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
+            
+            
+            
             order = Order.objects.get(user=current_user,is_ordered=False,order_number=order_number)
             context ={
                 'order':order,
@@ -68,6 +72,7 @@ def place_orders(request,total=0, quantity=0):
             }
             # return redirect('check_out')
             return render(request,'orders/payments.html',context)
+            
         else:
             print(form.errors)
             return redirect('check_out')
@@ -84,4 +89,36 @@ def place_orders(request,total=0, quantity=0):
         
 
 def payments(request):
+    body = json.loads(request.body)
+    order = Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+    
+    # print(body)
+    payment = Payment(
+        user = request.user,  
+        payment_id=body['transID'],
+        payment_method=body['payment_method'], 
+        amount_paid = order.order_total,
+        status = body['status'],
+    )
+    payment.save()
+    
+    order.payment=payment
+    order.is_ordered=True
+    order.save()
+    
     return render(request,'orders/payments.html')
+
+
+
+
+# def payments(request):
+#     if request.method == "POST":
+#         try:
+#             body = json.loads(request.body)
+#             print("Request body:", body)  # Log the request body to debug
+#             order = Order.objects.get(user=request.user, is_ordered=False, order_number=body['orderID'])
+#             # Process payment logic here
+#         except KeyError as e:
+#             print("KeyError: Missing key in body:", e)
+#             return HttpResponse(status=400)
+#         # Handle other logic
