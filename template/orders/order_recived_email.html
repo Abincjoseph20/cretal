@@ -1,0 +1,9 @@
+{% autoescape off %} <!-- protection aganist cross site scripting is  "autoescape off" -->
+
+Hi {{ user.first_name }},
+
+YOUR ORDER HAS BEEN RECIVED
+
+Order Number:{{order.order_number}}
+
+{% endautoescape %}
