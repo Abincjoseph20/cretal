@@ -6,7 +6,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-8">
-            <div class="card">
+            <div class="card mb-3">
                 <h5 class="card-header">Review your order and make your payment</h5>
                 <div class="card-body">
                     <p class="card-text">{{ order.full_name }}</p>
@@ -20,14 +20,12 @@
                     {% endif %}
                 </div>
             </div>
-            <br>
-            <div class="card">
+            <div class="card mb-3">
                 <h5 class="card-header">Payment method</h5>
                 <div class="card-body">
                     <p class="card-text">PayPal.</p>
                 </div>
             </div>
-            <br>
             <div class="card">
                 <h5 class="card-header">Review Products</h5>
                 <div class="card-body">
@@ -42,7 +40,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div>
-                                        <span><strong class="text-center">Rs.{{cart_item.sub_total }}</strong></span>
+                                        <span><strong class="text-center">Rs.{{ cart_item.sub_total }}</strong></span>
                                         <br>
                                         <span><strong class="text-center">Total Qty: {{ cart_item.quantity }}</strong></span>
                                     </div>
@@ -56,7 +54,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card position-fixed" style="top: 100px; width: 22%">
+          
+            <div class="card mb-3">
                 <div class="card-body">
                     <h3>The total Amount</h3>
                     <ul class="list-group">
@@ -85,8 +84,6 @@
     </div>
 </div>
 
-
-
 <script>
     function getCookie(name) {
         let cookieValue = null;
@@ -104,8 +101,6 @@
         return cookieValue;
     }
     
-
-
     var amount = "{{ grand_total }}";
     var url = "{% url 'payments' %}";
     var csrftoken = getCookie('csrftoken');
@@ -114,9 +109,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         
         paypal.Buttons({
-
-
-
             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
@@ -142,9 +134,7 @@
                             transID: details.id,
                         };
 
-
-        
-                        fetch(url,{
+                        fetch(url, {
                             method : "POST",
                             headers : {
                                 'content-type':'application/json',
@@ -152,19 +142,18 @@
                             },
                             body:JSON.stringify(orderData),
                         })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('Payment data sent successfully:', data);
-                            })
-                            .catch(error => {
-                                console.error('Error sending payment data:', error);
-                            });
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Payment data sent successfully:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error sending payment data:', error);
+                        });
                     }
                 });
             }
         }).render('#paypal-button-container');
     });
 </script>
-
 
 {% endblock main-content %}

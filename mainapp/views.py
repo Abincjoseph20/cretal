@@ -1,11 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.views import View
 from .models import Product
 
 # Create your views here.
 
 def base(request):
-    return render(request,'mainapp/home.html')
+    products = Product.objects.all()
+    print("Products:", products)  # Debugging
+    return render(request, 'mainapp/home.html')
+
 
 #locals() is a built in function to call all the local functions
 class Category(View):
@@ -22,10 +25,11 @@ class CategoryTitle(View):
         return render(request,'mainapp/category.html',locals())
 
 
-class ProductDetails(View):
+class ProductDetails(View):   
     def get(self, request,pk):
-        product = Product.objects.get(pk=pk)
-        return render(request, 'mainapp/productdetais.html', locals())
+        # products = Product.objects.get(pk=pk)
+        product = get_object_or_404(Product, pk=pk)
+        return render(request, 'mainapp/productdetais.html',{'products': product})
 
 
 def search(request):

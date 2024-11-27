@@ -1,15 +1,14 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-{% block title %} Profile {% endblock title %}
+{% block title %}Profile{% endblock title %}
 
 {% block main-content %}
-
 <div class="container my-5">
     {% if not wish_item %}
     <h2 class="text-center">Your wishlist is empty!</h2>
     <br>
     <div class="text-center">
-        <a href="{% url 'store' %}" class="btn btn-primary">add your favorite items!
+        <a href="{% url 'store' %}" class="btn btn-primary">Add your favorite items!
             <i class="fas fa-heart"></i>
         </a>
     </div>
@@ -48,5 +47,4 @@
     </div>
     {% endif %}
 </div>
-
 {% endblock main-content %}
