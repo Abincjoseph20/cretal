@@ -5,10 +5,10 @@
 {% block main-content %}
 
 <div class="container text-center">
-    {% if product %}
-    {% for i in product %}
+    {% if products %}
+    {% for i in products %}
     <div class="card text-center mx-4 my-3" style="width: 18rem; display:inline-block">
-            <a href="{% url 'Product_details' i.id %}">
+            <a href="{% url 'Product_detais' i.id %}">
             <img src="{{ i.product_image.url }}" style="width: 200px; height: 200px;">
         </a>
         <div class="card-body">
@@ -23,7 +23,7 @@
                 <a href="{% url 'buynow_cart1' i.id %}" class="btn btn-primary shadow px-3 py-2">
                     <i>buy now</i>
                 </a>
-                <a href="{% url 'wish_to_cart1' i.id %}" class="btn btn-danger shadow px-3 py-2">
+                <a href="{% url 'add_to_cart' i.id %}" class="btn btn-danger shadow px-3 py-2">
                     <i class="fas fa-heart"></i>
                 </a>
 

@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from carts.models import Cart_items
 from .forms import OrderForms
 from .models import Order,Payment,OrderProduct
 import datetime
 import json
+import logging
 from mainapp.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -49,6 +50,7 @@ def place_orders(request,total=0, quantity=0):
             data.order_note = form.cleaned_data['order_note'] 
             data.order_total = grand_total
             data.tax = tax
+            data.shipping = shipping
             data.ip = request.META.get('REMOTE_ADDR') 
             data.save()
             #genarate order number
@@ -62,6 +64,7 @@ def place_orders(request,total=0, quantity=0):
             data.order_number = order_number
             data.save()
             
+            print(f"Order saved: {data.order_number}, User: {data.user}, is_ordered: {data.is_ordered}")
             
             
             order = Order.objects.get(user=current_user,is_ordered=False,order_number=order_number)
@@ -93,8 +96,13 @@ def place_orders(request,total=0, quantity=0):
 
 def payments(request):
     body = json.loads(request.body)
-    order = Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+    # order = Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
     
+    try:
+        order = Order.objects.get(user=request.user, is_ordered=False, order_number=body['orderID'])
+    except Order.DoesNotExist:
+        return JsonResponse({'error': 'Order does not exist'}, status=404)
+
     # Get the email from the order object
     email = order.email  # assuming order.email contains the user's email
     
@@ -103,7 +111,7 @@ def payments(request):
         user = request.user,  
         payment_id=body['transID'],
         payment_method=body['payment_method'], 
-        amount_paid = order.order_total,
+        amount_paid = order.order_total,    
         status = body['status'],
     )
     payment.save()
@@ -148,6 +156,45 @@ def payments(request):
     to_email = email
     send_email = EmailMessage(mail_subject,message,to=[to_email])
     send_email.send()
-        
-    return render(request,'orders/payments.html')
+    
+    data = {
+        "order_number":order.order_number,
+        "transID": payment.payment_id,
+    }
+     
+    return JsonResponse(data)   
+    # return render(request,'orders/payments.html')
+    
+    
+logger = logging.getLogger(__name__)  
 
+def order_completed(request):
+    order_number = request.GET.get('order_number')
+    transID = request.GET.get('payment_id')
+    
+    try:
+        logger.info(f"Fetching order with order_number: {order_number} and transID: {transID}")
+        order = Order.objects.get(order_number=order_number,is_ordered=True)
+        ordered_products=OrderProduct.objects.filter(order_id=order.id)
+        
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.product_price * i.quantity
+        
+        payment = Payment.objects.get(payment_id=transID)
+        context = {
+            'order':order,
+            'ordered_products':ordered_products,
+            'order_number':order.order_number,
+            'transID':payment.payment_id,
+            'payment':payment,
+            'subtotal':subtotal,
+        }
+        return render(request,'orders/order_completed.html',context)
+    except (Payment.DoesNotExist, Order.DoesNotExist) as e:
+        logger.error(f"Error retrieving order or payment: {e}")
+        return redirect('home')
+    
+    
+    # return render(request,'orders/order_completed.html')
+    
