@@ -24,6 +24,6 @@ class Product(models.Model):
     product_image = models.ImageField(upload_to='product')
     product_quantity = models.FloatField()
     modified_date = models.DateField(auto_now=True)
-    crated_date = models.DateField(auto_now_add=True)
+    created_date = models.DateField(auto_now_add=True)
     def __str__(self):
         return self.title

@@ -38,7 +38,7 @@
                 {% if product.product_quantity <= 0 %}
                 <h5 class="text-danger shadow px-5">Out of stock</h5>
                 {% else %}
-                <a href="#" class="btn btn-primary shadow px-5 py-2 ms-4">Buy now</a>
+                <a href="{% url 'buynow_cart1' product.id %}" class="btn btn-primary shadow px-5 py-2 ms-4">Buy now</a>
                 <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning shadow px-5 py-2 ms-4">Add To Cart</a>
                 {% endif %}
             </form>

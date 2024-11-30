@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 text-center align-self-center">
-                            <a href="{% url 'Product_details' cart_item.product.id %}">
+                            <a href="{% url 'Product_detais' cart_item.product.id %}">
                                 <img src="{{ cart_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
                             </a>
                         </div>
@@ -62,8 +62,7 @@
                             <span id="totalamount"><strong>Rs.{{grand_total}}</strong></span>
                         </li>
                     </ul>
-                    <div class="d-grid"><a href="#" class="btn btn-primary">Place order</a></div>
-                    <div class="d-grid"><a href="{% url 'check_out' %}" class="btn btn-outline-secondary mt-2">check out</a></div>
+                    <div class="d-grid"><a href="{% url 'check_out' %}" class="btn btn-primary">Place order</a></div>
                 </div>
             </div>
         </div>
