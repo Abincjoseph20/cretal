@@ -43,7 +43,11 @@ from .models import Product
 
 
 def base(request):
-    return render(request,'mainapp/home.html')
+    products = Product.objects.all()
+    context ={
+        'products':products
+    }
+    return render(request,'mainapp/home.html',context)
 #locals() is a built in function to call all the local functions
 class Category(View):
     def get(self,request,val):

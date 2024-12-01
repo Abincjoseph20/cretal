@@ -33,7 +33,7 @@
 <div class="text-center">
   <div class="d-flex flex-wrap justify-content-center">
 
-    <div class="card text-center mx-4 my-3" style="width: 18rem;">
+    <!-- <div class="card text-center mx-4 my-3" style="width: 18rem;">
       <a href="#">
         <img src="{% static 'images/product/puma-boots.jpg' %}" style="width: 200px; height: 200px;">
       </a>
@@ -97,7 +97,30 @@
         <h5 class="card-title">Running</h5>
         <h5 class="card-text text-muted"></h5>
       </div>
+    </div> -->
+
+
+    {% for i in products %}
+
+    <div class="card text-center mx-4 my-3" style="width: 18rem; display:inline-block">
+            <a href="{% url 'Product_detais' i.id %}">
+            <img src="{{ i.product_image.url }}" style="width: 200px; height: 200px;">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">{{ i.title }}</h5>
+            <h5 class="card-text text-muted">{{ i.discounted_price }}</h5>
+            <h5 class="text-decoration-line-through text-danger">{{ i.selling_price }}</h5>
+            <div class="d-flex justify-content-between">
+
+              
+
+            </div>
+        </div>
     </div>
+
+    {% endfor %}
+
+    
   </div>
 </div>
 {% endblock main-content %}

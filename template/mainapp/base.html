@@ -32,8 +32,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="{% static 'images/logo.png' %}" height="40" width="120" alt="Brand Logo">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'images/logo1.png' %}" height="40" width="120" alt="Brand Logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -41,9 +41,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
               <a class="nav-link active text-primary-custom" aria-current="page" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-primary-custom" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-list"></i>
@@ -70,18 +70,25 @@
     </div>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-          <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle text-primary-custom" href="#"
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link text-primary-custom" href="#"
+          role="button" id="profileDropdown" 
+          aria-expanded="false">
+         <i class="fas fa-user"></i> 
+         hi {{user.first_name}}
+       </a>
+
+          <!-- <a class="nav-link dropdown-toggle text-primary-custom" href="#"
              role="button" id="profileDropdown" data-bs-toggle="dropdown"
              aria-expanded="false">
             <i class="fas fa-user"></i> 
-          </a>
-          <ul class="dropdown-menu" aria-describedby="profileDropdown">
+          </a> -->
+          <!-- <ul class="dropdown-menu" aria-describedby="profileDropdown">
             <li><a class="dropdown-item text-dark-custom" href="#"><i class="fas fa-user-circle"></i> Profile</a></li>
               <li><a class="dropdown-item text-dark-custom" href="#"><i class="fas fa-box"></i> Order</a></li>
               <li><a class="dropdown-item text-dark-custom" href="#"><i class="fas fa-key"></i> Change Password</a></li>
               <li><a class="dropdown-item text-dark-custom" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-          </ul>
+          </ul> -->
         </li>
           <li class="nav-item mx-2">
                <a href="{% url 'cart' %}" class="nav-link text-primary-custom"><i class="fas fa-shopping-cart"></i>
@@ -106,10 +113,11 @@
               <a href="#" class="nav-link text-primary-custom"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
           </li> -->
 
+
+
           <li class="nav-item mx-2">
               <a href="{% url 'logout' %}" class="nav-link text-primary-custom"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </li>
-
           {% endif %}
       </ul>
   </div>
