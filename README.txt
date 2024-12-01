@@ -17,7 +17,7 @@ step 3
 
 step 4
 
-cd creatal       
+cd cretal       
 
 
 
