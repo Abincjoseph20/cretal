@@ -78,10 +78,10 @@ def minus_cart(request, product_id):
     cart_items = []
     try:
         if request.user.is_authenticated:
-            cart_items = Cart_items.objects.filter(product=product, user=request.user, is_active=True)
+            cart_items = Cart_items.objects.filter(product=product, user=request.user.id, is_active=True)
         else:
             cart = Carts.objects.get(cart_id=_cart_id(request))
-            cart_items = Cart_items.objects.filter(product=product, user=request.user, cart=cart, is_active=True)
+            cart_items = Cart_items.objects.filter(product=product, user=request.user.id, cart=cart, is_active=True)
             
         for cart_item in cart_items:   
             if cart_item.quantity > 1:
