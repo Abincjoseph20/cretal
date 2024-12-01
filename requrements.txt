@@ -1,0 +1,54 @@
+step 1
+
+git clone https://github.com/Abincjoseph20/cretal.git 
+
+
+step 2
+
+virtualenv .venv 
+
+
+step 3
+
+cd creatal       
+
+
+
+step 4
+
+pip install django  
+
+
+step 5
+
+pip install pillow 
+
+
+step 6
+
+pip install python-decouple  
+
+
+step 7
+
+pip install psycopg2   
+
+
+step 8
+
+python manage.py makemigrations   
+
+
+
+step 9
+
+python manage.py migrate      
+
+
+step 10
+
+python manage.py createsuperuser   
+
+step 11
+
+python manage.py runserver  
