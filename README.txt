@@ -1,3 +1,6 @@
+E-Commerce website using python django.
+
+
 step 1
 
 git clone https://github.com/Abincjoseph20/cretal.git 
