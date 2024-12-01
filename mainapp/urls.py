@@ -10,5 +10,7 @@ urlpatterns = [
     path('ProductDetais/<int:pk>/', views.ProductDetails.as_view(), name='Product_detais'),
     path('search/', views.search, name='search'),
     path('store/', views.store, name='store'),
+    path('error_message', views.erro_handiling, name='erro_handiling'),
+
 ]
 

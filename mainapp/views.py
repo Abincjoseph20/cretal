@@ -91,3 +91,7 @@ def store(request):
 
 def demo(request):
     return render(request,'mainapp/demo.html')
+
+
+def erro_handiling(request):
+    return render(request,'mainapp/error_message.html')

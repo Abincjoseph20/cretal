@@ -62,7 +62,11 @@
                             <span id="totalamount"><strong>Rs.{{grand_total}}</strong></span>
                         </li>
                     </ul>
+                    {% if user.id is None %}
+                    <div class="d-grid"><a href="{% url 'erro_handiling' %}" class="btn btn-primary">Place order</a></div>
+                    {% else %}
                     <div class="d-grid"><a href="{% url 'check_out' %}" class="btn btn-primary">Place order</a></div>
+                    {% endif %}
                 </div>
             </div>
         </div>
