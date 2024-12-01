@@ -10,48 +10,52 @@ step 2
 
 virtualenv .venv 
 
-
 step 3
+
+.venv\Scripts\activate
+
+
+step 4
 
 cd creatal       
 
 
 
-step 4
+step 5
 
 pip install django  
 
 
-step 5
+step 6
 
 pip install pillow 
 
 
-step 6
+step 7
 
 pip install python-decouple  
 
 
-step 7
+step 8
 
 pip install psycopg2   
 
 
-step 8
+step 9
 
 python manage.py makemigrations   
 
 
 
-step 9
+step 10
 
 python manage.py migrate      
 
 
-step 10
+step 11
 
 python manage.py createsuperuser   
 
-step 11
+step 12
 
 python manage.py runserver  
