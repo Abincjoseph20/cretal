@@ -1,4 +1,4 @@
-E-Commerce website using python django.
+Created Cretal with the aim of offering a comprehensive e-commerce solution tailored for sports gear enthusiasts. The platform seamlessly incorporates user authentication, diverse payment options facilitated by paypal, and email verification to ensure heightened security
 
 
 step 1
@@ -17,7 +17,7 @@ step 3
 
 step 4
 
-cd creatal       
+cd cretal       
 
 
 
