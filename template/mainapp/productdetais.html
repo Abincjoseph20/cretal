@@ -19,19 +19,6 @@
                 <li>{{product.description}}</li>
             </ul>
             <br>
-             <!-- <form action="/add-to-cart" class="d-inline">
-                 {% csrf_token %}
-                 <input type="hidden" name="prod_id" value="{{ product.id }}">
-                 {% if product.product_quantity <= 0 %}
-                 <h5 class="text-danger shadow px-5">Out of stock</h5>
-                 {% else %}
-                 <a href="#" class="btn btn-primary shadow px-5 py-2 ms-4">Buy now</a>
-                 <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning shadow px-5 py-2 ms-4">Add To Cart</a>
-                 {% endif %}
-             </form> -->
-
-
-
              <form action="/add-to-cart" class="d-inline">
                 {% csrf_token %}
                 <input type="hidden" name="prod_id" value="{{ product.id }}">
