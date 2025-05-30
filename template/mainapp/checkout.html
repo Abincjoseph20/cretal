@@ -1,0 +1,103 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Billing Address</h3>
+                    <form action="{% url 'place_orders' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" name="first_name" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" name="last_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="phone">Phone</label>
+                                <input type="text" id="phone" name="phone" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label for="address1">Address Line 1</label>
+                                <input type="text" id="address1" name="address_line1" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="address2">Address Line 2</label>
+                                <input type="text" id="address2" name="address_line2" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="country">Country</label>
+                                <input type="text" id="country" name="country" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <label for="order-note">Order Note</label>
+                            <textarea id="order-note" name="order_note" class="form-control" rows="2"></textarea>
+                        </div>
+                    
+                </div>
+               </div>
+        </div>
+
+        <div class="col-lg-6">
+          
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <h3>The total Amount</h3>
+                    {% for cart_item in cart_items %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3 text-center align-self-center">
+                                    <a href="{% url 'Product_detais' cart_item.product.id %}">
+                                        <img src="{{ cart_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                    </a>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <label class="form-control text-center" for=""> <span><strong>Total Qty: {{ cart_item.quantity }} </strong></span></label>   
+                                        <span><strong class="text-center">Rs. {{ cart_item.sub_total }} </strong></span>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="text-muted">
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="d-grid">
+                         <button type="submit" name="submit" class="btn btn-primary">Place order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock main-content %}

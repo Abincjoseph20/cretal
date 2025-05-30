@@ -1,0 +1,55 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block banner %}
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/banner/main-imgs.jpg' %}" class="d-block w-100 h-25" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/main-imgs1.jpg' %}" class="d-block w-100 h-25" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/main-imgs25.jpg' %}" class="d-block w-100 h-25" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/banner/main-imgs32.jpg' %}" class="d-block w-100 h-25" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endblock banner %}
+
+{% block main-content %}
+<div class="text-center">
+  <div class="d-flex flex-wrap justify-content-center">
+    {% for i in products %}
+
+    <div class="card text-center mx-4 my-3" style="width: 18rem; display:inline-block">
+            <a href="{% url 'Product_detais' i.id %}">
+            <img src="{{ i.product_image.url }}" style="width: 200px; height: 200px;">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">{{ i.title }}</h5>
+            <h5 class="card-text text-muted">{{ i.discounted_price }}</h5>
+            <h5 class="text-decoration-line-through text-danger">{{ i.selling_price }}</h5>
+            <div class="d-flex justify-content-between">
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    
+  </div>
+</div>
+{% endblock main-content %}

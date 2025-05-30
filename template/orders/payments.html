@@ -1,0 +1,165 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-3">
+                <h5 class="card-header">Review your order and make your payment</h5>
+                <div class="card-body">
+                    <p class="card-text">{{ order.full_name }}</p>
+                    <p class="card-text">{{ order.full_address }}</p>
+                    <p class="card-text">{{ order.city }}, {{ order.state }}</p>
+                    <p class="card-text">{{ order.country }}</p>
+                    <p class="card-text">{{ order.email }}</p>
+                    <p class="card-text">{{ order.phone }}</p>
+                    {% if order.order_note %}
+                    <b>Order note:</b> {{ order.order_note }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card mb-3">
+                <h5 class="card-header">Payment method</h5>
+                <div class="card-body">
+                    <p class="card-text">PayPal.</p>
+                </div>
+            </div>
+            <div class="card">
+                <h5 class="card-header">Review Products</h5>
+                <div class="card-body">
+                    {% for cart_item in cart_items %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3 text-center align-self-center">
+                                    <a href="{% url 'Product_detais' cart_item.product.id %}">
+                                        <img src="{{ cart_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                    </a>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <span><strong class="text-center">Rs.{{ cart_item.sub_total }}</strong></span>
+                                        <br>
+                                        <span><strong class="text-center">Total Qty: {{ cart_item.quantity }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="text-muted">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+          
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>The total Amount</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            Amount <span id="amount">Rs. {{ total }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Shipping <span>{{shipping}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Tax <span>{{ tax }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Grand Total</strong>
+                            </div>
+                            <span id="totalamount"><strong>Rs. {{ grand_total }}</strong></span>
+                        </li>
+                    </ul>
+                    <div id="paypal-button-container">
+                        <!-- PayPal button will load here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    var amount = "{{ grand_total }}";
+    var url = "{% url 'payments' %}";
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{ order.order_number }}";
+    var payment_method = 'paypal';
+    var redirect_url = '{% url "order_completed" %}';
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    console.log(details);
+                    sendData();
+                    
+                    function sendData(){
+                        let payment_method = "PayPal"; 
+                       
+                        let orderData = {
+                            payment_method: payment_method,
+                            orderID: orderID,
+                            amount: amount,
+                            status: details.status,
+                            transID: details.id,
+                        };
+
+                        fetch(url, {
+                            method : "POST",
+                            headers : {
+                                'content-type':'application/json',
+                                'X-CSRFToken': csrftoken,
+                            },
+                            body:JSON.stringify(orderData),
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            //console.log("success",data);
+                            //console.log("transaction completed.");
+                     
+                            window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID;
+
+
+                        })
+                        .catch(error => {
+                            console.error('Error sending payment data:', error);
+                        });
+                    }
+                });
+            }
+        }).render('#paypal-button-container');
+    });
+</script>
+
+{% endblock main-content %}

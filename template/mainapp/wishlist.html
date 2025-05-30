@@ -1,0 +1,53 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    {% if not wish_item %}
+    <h2 class="text-center">Your wishlist is empty!</h2>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'store' %}" class="btn btn-primary">Add your favorite items!
+            <i class="fas fa-heart"></i>
+        </a>
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+        <!-- Center the entire row -->
+        {% for wished_item in wish_item %}
+        <div class="col-md-8 mb-4">
+            <!-- Use col-md-8 and mb-4 for consistent size and spacing -->
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center align-self-center">
+                            <!-- Adjusted to col-md-4 for image column -->
+                            <a href="{% url 'Product_detais' wished_item.product.id %}">
+                                <img src="{{ wished_item.product.product_image.url }}" alt="" class="img-fluid img-thumbnail shadow-sm" style="height: 150px; width: 150px;">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- Adjusted to col-md-8 for text column -->
+                            <div>
+                                <h5>{{ wished_item.product.title }}</h5>
+                                <p class="mb-2 text-muted small">{{ wished_item.product.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <a href="{% url 'remove_wish_item' wished_item.product.id %}" class="remove-cart btn btn-sm btn-secondary mr-3">Remove Item</a>
+                                    <p class="mb-0"><span><strong>Rs. {{ wished_item.sub_total }}</strong></span></p>
+                                    <a href="{% url 'add_to_cart' wished_item.product.id %}" class="btn btn-warning shadow px-3 py-2">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock main-content %}
