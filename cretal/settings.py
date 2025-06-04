@@ -74,23 +74,23 @@ WSGI_APPLICATION = 'cretal.wsgi.application'
 
 # Database configuration
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cretal',
-        'USER': 'postgres',
-        'PASSWORD': '',  # Replace with your actual password
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'cretal',
+#         'USER': 'postgres',
+#         'PASSWORD': '',  # Replace with your actual password
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # DATABASE_URL = config('DATABASE_URL', default='')
 # if DATABASE_URL:
