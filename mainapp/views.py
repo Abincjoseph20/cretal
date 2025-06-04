@@ -47,7 +47,7 @@ def base(request):
     context ={
         'products':products
     }
-    return render(request,'mainapp/home.html',context)
+    return render(request,'mainapp/index.html',context)
 
 #locals() is a built in function to call all the local functions
 class Category(View):
