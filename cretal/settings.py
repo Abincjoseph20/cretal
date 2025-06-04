@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security settings
 # SECRET_KEY = config('SECRET_KEY', default='your-secret-key-here')
 # DEBUG = config('DEBUG', default=False, cast=bool)
-# ALLOWED_HOSTS = ['cretal.onrender.com', '127.0.0.1', 'localhost']
+
 
 
 SECRET_KEY = 'django-insecure-dxprkqfd1jw%mq-=)#my9ot*2f#qsv3a&3_hp8yjf00^bki@ih'
@@ -20,8 +20,8 @@ SECRET_KEY = 'django-insecure-dxprkqfd1jw%mq-=)#my9ot*2f#qsv3a&3_hp8yjf00^bki@ih
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cretal.onrender.com', '127.0.0.1', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
