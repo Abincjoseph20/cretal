@@ -8,10 +8,6 @@ from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Security settings
-# SECRET_KEY = config('SECRET_KEY', default='your-secret-key-here')
-# DEBUG = config('DEBUG', default=False, cast=bool)
-
 
 
 SECRET_KEY = 'django-insecure-dxprkqfd1jw%mq-=)#my9ot*2f#qsv3a&3_hp8yjf00^bki@ih'
@@ -35,6 +31,9 @@ INSTALLED_APPS = [
     'carts',
     'accounts',
     'orders',
+    
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -140,13 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.contrib.messages import constants as messages
 
 
-
-# # Messages
-# MESSAGE_TAGS = {
-#     messages.ERROR: "danger",
-# }
-
-# Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Or the appropriate port for your SMTP serverAdd commentMore actions
@@ -154,13 +146,18 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS',cast=bool) # Use TLS for secure communica
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-# Security settings for production
-# if not DEBUG:
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#     SECURE_SSL_REDIRECT = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
 
-# Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+#     'API_KEY': config('CLOUDINARY_API_KEY'),
+#     'API_SECRET': config('CLOUDINARY_API_SECRET')
+# }
+
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER='EMAIL_HOST_USER'
+# EMAIL_HOST_PASSWORD='EMAIL_HOST_PASSWORD'
 
